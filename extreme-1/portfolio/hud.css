@@ -1,0 +1,118 @@
+/* ============================================================
+   AKSHAT PORTFOLIO — performance HUD (top-centre glass pill)
+   ============================================================ */
+
+#ak-hud {
+  position: fixed;
+  top: clamp(14px, 2.6vh, 30px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.6vw, 22px);
+  row-gap: 4px;
+
+  max-width: min(94vw, 1100px);
+  padding: clamp(7px, 1.1vh, 11px) clamp(14px, 1.8vw, 26px);
+  border-radius: 999px;
+
+  /* glassmorphism */
+  background: linear-gradient(180deg, rgba(18, 20, 26, 0.72), rgba(10, 11, 15, 0.62));
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+
+  font-family: ShareTech, "SF Mono", Menlo, monospace;
+  font-size: clamp(11px, 1.35vw, 15px);
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.25s ease;
+}
+
+#ak-hud.ak-hud-hidden {
+  display: none;
+}
+
+/* hide while the settings overlay is open */
+body.ak-settings-open #ak-hud {
+  opacity: 0;
+}
+
+.ak-hud-cell {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.ak-hud-lab {
+  color: rgba(233, 238, 248, 0.5);
+  font-size: 0.82em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.ak-hud-val {
+  color: #fff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+
+/* tone colours */
+.ak-hud-val[data-tone="ok"] {
+  color: #74e0a0;
+}
+.ak-hud-val[data-tone="warn"] {
+  color: #ffc861;
+}
+.ak-hud-val[data-tone="bad"] {
+  color: #ff7b7b;
+}
+.ak-hud-val[data-tone="plain"] {
+  color: #cfe2ff;
+}
+
+.ak-hud-na .ak-hud-val {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 400;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  #ak-hud {
+    gap: 9px 14px;
+    border-radius: 18px;
+  }
+}
+@media (max-width: 560px) {
+  #ak-hud {
+    max-width: calc(100vw - 16px);
+    padding: 7px 12px;
+    font-size: 10.5px;
+    gap: 7px 11px;
+    border-radius: 14px;
+    white-space: normal;
+  }
+  .ak-hud-lab {
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ak-hud {
+    transition: none;
+  }
+}

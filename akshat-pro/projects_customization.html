@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects Customization</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/azonix" rel="stylesheet" />
+
+  <!-- Lenis CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css" />
+
+  <style>
+    /* ============================================================
+       RESET & TOKENS
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0A0A0A;
+      --bg2:     #111111;
+      --bg3:     #161616;
+      --fire:    #FF6B1A;
+      --fire2:   #FF9240;
+      --glow:    rgba(255,107,26,.28);
+      --text:    #F5F5F5;
+      --muted:   #A1A1AA;
+      --dim:     #52525B;
+      --border:  rgba(255,255,255,.06);
+      --r:       16px;
+      --r-sm:    10px;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 200px; /* spacing at bottom */
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       PAGE LOADER SCREEN
+       ============================================================ */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      background: #0A0A0A;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-title {
+      font-family: 'Azonix', 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.15em;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .loader-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--fire);
+      font-weight: 700;
+    }
+
+    .loader-bar-wrap {
+      width: 220px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    .loader-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--fire);
+      box-shadow: 0 0 8px var(--fire);
+    }
+
+    /* ============================================================
+       GRAIN NOISE
+       ============================================================ */
+    .grain {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .045;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      animation: grainMove .4s steps(3) infinite;
+    }
+
+    @keyframes grainMove {
+      0%   { background-position:   0%   0%; }
+      33%  { background-position: -10%  15%; }
+      66%  { background-position:  15% -10%; }
+      100% { background-position:  -5%   5%; }
+    }
+
+    /* ============================================================
+       CURSOR
+       ============================================================ */
+    .cursor,
+    .cursor-dot {
+      position: fixed;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      z-index: 10000;
+    }
+
+    .cursor {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,107,26,.55);
+      transition: width .3s, height .3s, background .3s, border-color .3s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--fire);
+    }
+
+    body.hovered .cursor {
+      width: 72px;
+      height: 72px;
+      background: rgba(255,107,26,.08);
+      border-color: var(--fire);
+    }
+
+    body.link-hovered .cursor {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,107,26,.12);
+    }
+
+    /* ============================================================
+       UTILITY CLASSES
+       ============================================================ */
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 16px;
+    }
+
+    /* ============================================================
+       PROJECTS — Framer Style Responsive Card Grid
+       ============================================================ */
+    .work {
+      padding: 100px 0 0;
+      position: relative;
+    }
+
+    /* Ambient orange glow behind title matching Framer site */
+    .work::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -80px;
+      width: 560px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(255, 107, 26, 0.12) 0%, rgba(255, 107, 26, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .work-head {
+      padding: 0 56px 56px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+
+    .work-head-left { flex: 1; }
+
+    .work-head-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      padding-bottom: 8px;
+      opacity: .38;
+    }
+
+    .work-count {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      color: var(--fire);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+    }
+
+    .work-count-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .work-title {
+      font-family: 'Azonix', 'Bebas Neue', 'Inter', sans-serif;
+      font-size: clamp(48px, 7vw, 100px);
+      font-weight: 900;
+      letter-spacing: .02em;
+      line-height: .9;
+      overflow: hidden;
+    }
+
+    .grid-wrap {
+      padding: 0 56px 88px;
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* Grid container matching Framer specs */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(300px, 1fr));
+      gap: 22px;
+      width: 100%;
+    }
+
+    /* Premium Framer Project Card */
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 520px;
+      background-color: #050505;
+      border: 1px solid rgba(255, 107, 26, 0.28);
+      border-radius: 24px;
+      padding: 18px;
+      overflow: hidden;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.5s cubic-bezier(.16,1,.3,1), 
+                  box-shadow 0.5s cubic-bezier(.16,1,.3,1),
+                  background-color 0.5s cubic-bezier(.16,1,.3,1);
+    }
+
+    .project-card:hover {
+      border-color: rgba(255, 107, 26, 0.9);
+      background-color: rgba(255, 107, 26, 0.08);
+      box-shadow: 0 12px 56px rgba(255, 107, 26, 0.18),
+                  inset 0 0 0 1px rgba(255, 107, 26, 0.08);
+    }
+
+    /* Card Decoration Glow Background SVG */
+    .card-decor {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.84;
+    }
+
+    /* Main Screenshot Image Wrapper — handles aspect ratio / focus */
+    .card-img-wrap {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #0c0c0c;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      z-index: 1;
+      margin-bottom: 16px;
+    }
+
+    .card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center; /* keeps upper part of mockups focused */
+      filter: grayscale(40%) brightness(.55) contrast(1.08);
+      transition: filter 0.6s cubic-bezier(.16,1,.3,1),
+                  transform 0.6s cubic-bezier(.16,1,.3,1);
+      display: block;
+    }
+
+    .project-card:hover .card-img {
+      filter: grayscale(0%) brightness(.75) contrast(1.02);
+      transform: scale(1.04);
+    }
+
+    /* Info Plate at the bottom — premium glassmorphism overlay */
+    .card-info {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 22px 22px 20px;
+      border-radius: 18px;
+      background: linear-gradient(0deg, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.78) 68%, rgba(5, 5, 5, 0.12) 100%);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.4s ease;
+    }
+
+    .project-card:hover .card-info {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Project name styling */
+    .card-title {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(20px, 2.2vw, 34px);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -.01em;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.05;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+
+    /* Category tag */
+    .card-cat {
+      display: block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: #FF9240;
+    }
+
+    /* URL & Arrow Link details */
+    .card-url-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .card-url {
+      font-size: 10px;
+      color: rgba(255,255,255,.38);
+      letter-spacing: .06em;
+      font-weight: 500;
+    }
+
+    .card-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,107,26,0.65);
+      color: var(--fire2);
+      font-size: 12px;
+      transition: background .3s, border-color .3s, transform .3s;
+      flex-shrink: 0;
+      background: rgba(255,107,26,0.1);
+      line-height: 1;
+    }
+
+    .project-card:hover .card-arrow {
+      background: rgba(255,107,26,0.25);
+      border-color: var(--fire);
+      transform: translate(2px, -2px);
+    }
+
+    /* Special style for GitHub card */
+    .project-card--github:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 8px 40px rgba(255, 255, 255, 0.05);
+    }
+
+    .project-card--github .card-cat {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .project-card--github .card-arrow {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .project-card--github:hover .card-arrow {
+      border-color: rgba(255, 255, 255, 0.8);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS (Matching Framer Layout Specs)
+       ============================================================ */
+    /* Tablet layout: 2 columns */
+    @media (max-width: 1439px) and (min-width: 810px) {
+      .work { padding: 80px 0 0; }
+      .work-head { padding: 0 32px 40px; max-width: 810px; }
+      .grid-wrap { padding: 0 32px 64px; max-width: 810px; }
+      .work-grid {
+        grid-template-columns: repeat(2, minmax(280px, 1fr));
+        gap: 18px;
+        max-width: 746px;
+        margin: 0 auto;
+      }
+      .project-card {
+        height: 460px;
+      }
+      .card-info {
+        padding: 18px;
+      }
+    }
+
+    /* Phone layout: 1 column vertical stack */
+    @media (max-width: 809px) {
+      .work { padding: 64px 0 0; }
+      .work-head { padding: 0 16px 32px; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 390px; }
+      .work-head-right { display: none; }
+      .cursor, .cursor-dot { display: none !important; }
+
+      .grid-wrap { padding: 0 16px 40px; max-width: 390px; }
+      .work-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        max-width: 358px;
+        margin: 0 auto;
+      }
+      .project-card {
+        height: 430px;
+        padding: 14px;
+        border-radius: 20px;
+      }
+      .card-info {
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .card-title {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Premium Loader Overlay -->
+  <div id="page-loader" aria-live="polite">
+    <div class="loader-content">
+      <div class="loader-title">
+        <span class="loader-char">A</span>
+        <span class="loader-char">K</span>
+        <span class="loader-char">S</span>
+        <span class="loader-char">H</span>
+        <span class="loader-char">A</span>
+        <span class="loader-char">T</span>
+      </div>
+      <div class="loader-sub">Ever Shtar Portfolio</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated grain noise overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <!-- ======================== PROJECTS — Framer Card Grid ======================== -->
+  <section class="work" id="work">
+
+    <div class="work-head">
+      <div class="work-head-left">
+        <p class="section-label">/ SELECTED WORK</p>
+        <h2 class="work-title" id="workTitle">Projects</h2>
+      </div>
+      <div class="work-head-right" aria-hidden="true">
+        <span class="work-count">09</span>
+        <span class="work-count-lbl">Live Products</span>
+      </div>
+    </div>
+
+    <div class="grid-wrap">
+      <div class="work-grid" id="workGrid">
+
+        <!-- Project 1: Lens Shtar -->
+        <a class="project-card" href="https://lens.shtar.space" target="_blank" rel="noopener">
+          <!-- Ambient card color theme decoration matching Framer -->
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-lens" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(107, 26, 255, 0.16)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-lens)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/lens-shtar.jpg" alt="Lens Shtar project mockup" class="card-img" loading="eager" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Lens Shtar</h2>
+            <span class="card-cat">Fintech · AI</span>
+            <div class="card-url-row">
+              <span class="card-url">lens.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 2: Kaya Remedies -->
+        <a class="project-card" href="https://kaya-remedies.shtar.space/" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-kaya" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(26, 200, 100, 0.14)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-kaya)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/kaya-remedies.jpg" alt="Kaya Remedies project mockup" class="card-img" loading="eager" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Kaya Remedies</h2>
+            <span class="card-cat">Ayurveda · Wellness</span>
+            <div class="card-url-row">
+              <span class="card-url">kaya-remedies.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 3: Ever Shtar -->
+        <a class="project-card" href="https://evershtar.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-ever" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(255, 107, 26, 0.16)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-ever)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/ever-shtar.jpg" alt="Ever Shtar project mockup" class="card-img" loading="eager" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Ever Shtar</h2>
+            <span class="card-cat">Digital Studio</span>
+            <div class="card-url-row">
+              <span class="card-url">evershtar.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 4: Indo Investor -->
+        <a class="project-card" href="https://indoinvestor.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-indo" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(14, 150, 80, 0.15)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-indo)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/indo-investor.png" alt="Indo Investor project mockup" class="card-img" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Indo Investor</h2>
+            <span class="card-cat">Real Estate</span>
+            <div class="card-url-row">
+              <span class="card-url">indoinvestor.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 5: Love Over Coffee -->
+        <a class="project-card" href="https://loveovercoffee.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-love" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(220, 140, 40, 0.16)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-love)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/love-over-coffee.jpg" alt="Love Over Coffee project mockup" class="card-img" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Love Over Coffee</h2>
+            <span class="card-cat">Premium Café</span>
+            <div class="card-url-row">
+              <span class="card-url">loveovercoffee.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 6: Orah Cafe -->
+        <a class="project-card" href="https://orahcafe.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-orah" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(8, 180, 160, 0.15)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-orah)" />
+          </svg>
+          <div class="card-img-wrap">
+            <!-- Gradient background fallback for panel without photo -->
+            <div class="panel-grad" style="position: absolute; inset: 0; background: linear-gradient(155deg,#04100e,#081e1a);"></div>
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Orah Cafe</h2>
+            <span class="card-cat">Modern Café</span>
+            <div class="card-url-row">
+              <span class="card-url">orahcafe.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 7: Arvind Canteen -->
+        <a class="project-card" href="https://arvindcafe.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-arvind" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(220, 30, 20, 0.15)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-arvind)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/arvind-canteen.jpg" alt="Arvind Canteen project mockup" class="card-img" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Arvind Canteen</h2>
+            <span class="card-cat">Restaurant</span>
+            <div class="card-url-row">
+              <span class="card-url">arvindcafe.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 8: Diet Plan -->
+        <a class="project-card" href="https://tb-diet-plan.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-diet" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(80, 220, 40, 0.14)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-diet)" />
+          </svg>
+          <div class="card-img-wrap">
+            <div class="panel-grad" style="position: absolute; inset: 0; background: linear-gradient(155deg,#050e06,#0a1e0c);"></div>
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Diet Plan</h2>
+            <span class="card-cat">Wellness</span>
+            <div class="card-url-row">
+              <span class="card-url">tb-diet-plan.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Github: View All Projects -->
+        <a class="project-card project-card--github" href="https://github.com/Akshat-xe?tab=repositories" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-github" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.08)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-github)" />
+          </svg>
+          <div class="card-img-wrap">
+            <div class="panel-grad" style="position: absolute; inset: 0; background: linear-gradient(155deg,#0a0a0a,#181818);"></div>
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">View All Projects</h2>
+            <span class="card-cat">Repositories · Open Source</span>
+            <div class="card-url-row">
+              <span class="card-url">github.com/Akshat-xe</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================== SCRIPTS ======================== -->
+  <script src="gsap/gsap.min.js"></script>
+  <script src="gsap/ScrollTrigger.min.js"></script>
+  <script src="gsap/SplitText.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    /* ============================================================
+       LENIS — smooth scroll
+       ============================================================ */
+    const lenis = new Lenis({
+      duration: 1.35,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+      smoothTouch: false,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* ============================================================
+       CUSTOM CURSOR
+       ============================================================ */
+    const cursor    = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursorDot');
+
+    let mx = 0, my = 0, cx = 0, cy = 0;
+
+    document.addEventListener('mousemove', e => {
+      if (window.innerWidth <= 768) return;
+      mx = e.clientX;
+      my = e.clientY;
+      gsap.set(cursorDot, { x: mx, y: my });
+    });
+
+    (function trackCursor() {
+      if (window.innerWidth > 768) {
+        cx += (mx - cx) * 0.11;
+        cy += (my - cy) * 0.11;
+        gsap.set(cursor, { x: cx, y: cy });
+      }
+      requestAnimationFrame(trackCursor);
+    })();
+
+    document.querySelectorAll('a, button, .project-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
+    });
+
+    /* ============================================================
+       PAGE LOADER TIMELINE
+       ============================================================ */
+    const loaderTl = gsap.timeline({
+      onComplete: () => {
+        // Smoothly fade out overlay
+        gsap.to('#page-loader', {
+          opacity: 0,
+          pointerEvents: 'none',
+          duration: 0.8,
+          ease: 'power3.inOut',
+          onComplete: () => {
+            document.getElementById('page-loader').style.display = 'none';
+            // Start animations inside page after loader is gone
+            initWorkGridAnimations();
+          }
+        });
+      }
+    });
+
+    // Stagger character reveal
+    loaderTl.fromTo('.loader-char', 
+      { opacity: 0, y: 30, scale: 0.8 }, 
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.08, ease: 'power4.out' }
+    );
+    loaderTl.fromTo('.loader-sub',
+      { opacity: 0 },
+      { opacity: 0.8, duration: 0.4 },
+      '-=0.2'
+    );
+    // Smooth progress bar to 85%
+    loaderTl.to('.loader-progress', 
+      { width: '85%', duration: 1.2, ease: 'power2.out' },
+      '-=0.4'
+    );
+
+    // Complete loading when page resources are fully ready
+    window.addEventListener('load', () => {
+      gsap.to('.loader-progress', {
+        width: '100%',
+        duration: 0.4,
+        ease: 'power1.out',
+        onComplete: () => {
+          loaderTl.play();
+        }
+      });
+    });
+
+    // Fallback if window load takes too long (timeout after 4.5s)
+    setTimeout(() => {
+      gsap.to('.loader-progress', {
+        width: '100%',
+        duration: 0.3,
+        onComplete: () => {
+          loaderTl.play();
+        }
+      });
+    }, 4500);
+
+    /* ============================================================
+       WORK GRID ANIMATIONS
+       ============================================================ */
+    function initWorkGridAnimations() {
+      /* ── Title SplitText entrance ── */
+      const titleEl = document.getElementById('workTitle');
+      if (titleEl) {
+        const split = new SplitText(titleEl, { type: 'chars' });
+        gsap.fromTo(split.chars,
+          { yPercent: 115, opacity: 0 },
+          {
+            yPercent: 0, opacity: 1,
+            duration: 0.85,
+            stagger: 0.025,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: titleEl,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      }
+
+      /* ── Card grid staggered fade-up ── */
+      const cards = document.querySelectorAll('.project-card');
+      const grid = document.getElementById('workGrid');
+      if (!grid || cards.length === 0) return;
+
+      gsap.fromTo(cards,
+        { opacity: 0, y: 40, scale: 0.98 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 1.0,
+          stagger: 0.08,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: grid,
+            start: 'top 85%',
+            once: true,
+          }
+        }
+      );
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshat — Founder & Developer · Ever Shtar</title>
+  <meta name="description" content="17-year-old founder and developer from Godda, Jharkhand. Three years building websites, digital products, and AI tools." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/azonix" rel="stylesheet" />
+
+  <!-- Lenis CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Premium Loader Overlay -->
+  <div id="page-loader" aria-live="polite">
+    <div class="loader-content">
+      <div class="loader-title">
+        <span class="loader-char">A</span>
+        <span class="loader-char">K</span>
+        <span class="loader-char">S</span>
+        <span class="loader-char">H</span>
+        <span class="loader-char">A</span>
+        <span class="loader-char">T</span>
+      </div>
+      <div class="loader-sub">Ever Shtar Portfolio</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated grain noise overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <!-- ======================== NAVIGATION ======================== -->
+  <nav class="nav" id="nav" role="navigation">
+    <!-- Limelight spotlight (component 3) -->
+    <div class="nav-limelight" id="navLimelight" aria-hidden="true">
+      <div class="nav-limelight-cone"></div>
+    </div>
+    <a href="#hero" class="nav-logo">
+      <span>AKSHAT</span>
+      <span class="nav-logo-sub">× Ever Shtar</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#hero" data-nav="hero">Home</a></li>
+      <li><a href="#about" data-nav="about">About</a></li>
+      <li><a href="#work" data-nav="work">Projects</a></li>
+      <li><a href="#services" data-nav="services">Stack</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+    <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul role="list">
+      <li><a href="#hero" class="mob-link">Home</a></li>
+      <li><a href="#about" class="mob-link">About</a></li>
+      <li><a href="#work" class="mob-link">Projects</a></li>
+      <li><a href="#services" class="mob-link">Services</a></li>
+      <li><a href="#contact" class="mob-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ======================== HERO ======================== -->
+  <section class="hero" id="hero">
+
+    <!-- Hero photo -->
+    <img src="preview-2.jpg" alt="Akshat" class="hero-photo" loading="eager" decoding="async" />
+
+    <!-- Gradient overlay — readable text without killing the photo -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- All text, absolutely positioned over photo -->
+    <div class="hero-content">
+
+      <!-- Top: available badge -->
+      <div class="hero-eyebrow" id="heroEyebrow">
+        <span class="badge-dot" aria-hidden="true"></span>
+        <span>Available for Work · India &amp; International</span>
+      </div>
+
+      <!-- Main name — AKSHAT -->
+      <div class="hero-name-wrap">
+        <h1 class="hero-name" id="heroName">AKSHAT</h1>
+      </div>
+
+      <!-- Animated cycling subtitle -->
+      <div class="hero-cycling-wrap" id="heroCycling">
+        <span class="cycling-static">A&nbsp;</span>
+        <span class="cycling-word-host" aria-live="polite">
+          <span class="cycling-word" id="cyclingWord">developer</span>
+        </span>
+        <span class="cycling-static">&nbsp;&amp;&nbsp;</span>
+        <span class="cycling-static grad-fire">founder</span>
+      </div>
+
+      <!-- Role / studio line -->
+      <p class="hero-role" id="heroRole">
+        Ever Shtar &nbsp;·&nbsp; Godda, Jharkhand &nbsp;·&nbsp; India
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-actions" id="heroActions">
+        <a href="#work" class="btn btn--fire">View Work</a>
+        <a href="#about" class="btn btn--ghost">About Me</a>
+      </div>
+
+    </div>
+
+    <!-- Scroll hint — absolute, bottom-left -->
+    <div class="hero-scroll" id="heroScroll" aria-hidden="true">
+      <div class="scroll-bar"></div>
+      <span>Scroll</span>
+    </div>
+
+    <!-- Studio badge — absolute, bottom-right -->
+    <div class="hero-badge" id="heroBadge">
+      <span>EVER SHTAR · DIGITAL STUDIO</span>
+    </div>
+
+  </section>
+
+  <!-- ======================== TICKER ======================== -->
+  <div class="ticker-band" aria-hidden="true">
+    <div class="ticker-rail" id="tickerRail">
+      <span>Automation Systems</span><span class="dot">·</span>
+      <span>Web Solutions</span><span class="dot">·</span>
+      <span>API Integration</span><span class="dot">·</span>
+      <span>AI Tools</span><span class="dot">·</span>
+      <span>Workflow Design</span><span class="dot">·</span>
+      <span>Digital Products</span><span class="dot">·</span>
+      <span>Automation Systems</span><span class="dot">·</span>
+      <span>Web Solutions</span><span class="dot">·</span>
+      <span>API Integration</span><span class="dot">·</span>
+      <span>AI Tools</span><span class="dot">·</span>
+      <span>Workflow Design</span><span class="dot">·</span>
+      <span>Digital Products</span><span class="dot">·</span>
+    </div>
+    <div class="ticker-rail ticker-rail--clone" aria-hidden="true">
+      <span>Automation Systems</span><span class="dot">·</span>
+      <span>Web Solutions</span><span class="dot">·</span>
+      <span>API Integration</span><span class="dot">·</span>
+      <span>AI Tools</span><span class="dot">·</span>
+      <span>Workflow Design</span><span class="dot">·</span>
+      <span>Digital Products</span><span class="dot">·</span>
+      <span>Automation Systems</span><span class="dot">·</span>
+      <span>Web Solutions</span><span class="dot">·</span>
+      <span>API Integration</span><span class="dot">·</span>
+      <span>AI Tools</span><span class="dot">·</span>
+      <span>Workflow Design</span><span class="dot">·</span>
+      <span>Digital Products</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!--  ABOUT -->
+  <section class="about" id="about">
+    <!-- Dot pattern background (component 5) -->
+    <div class="dot-bg" aria-hidden="true"></div>
+    <div class="about-inner">
+
+      <!-- Manifesto column -->
+      <div class="about-left">
+        <p class="section-label">/ MANIFESTO</p>
+        <blockquote class="poem" id="manifestoPoem">
+          <span class="poem-line">No walls, no limits,</span>
+          <span class="poem-line">no boundaries to tame.</span>
+          <span class="poem-line">Ever SHTAR rises,</span>
+          <span class="poem-line">a forge of relentless flame.</span>
+          <span class="poem-line poem-line--gap">&nbsp;</span>
+          <span class="poem-line">One mind, one flow,</span>
+          <span class="poem-line">automation in motion.</span>
+          <span class="poem-line">Built not for fame —</span>
+          <span class="poem-line">but to spark pure devotion.</span>
+        </blockquote>
+
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-num" data-target="3">3+</span>
+            <span class="stat-lbl">Years Building</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="20">20+</span>
+            <span class="stat-lbl">Projects Shipped</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="7">7+</span>
+            <span class="stat-lbl">Live Products</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo column -->
+      <div class="about-right">
+        <div class="about-photo-wrap">
+          <img src="img/about-photo.png" alt="Akshat" class="about-img" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================== PROJECTS — Framer Card Grid ======================== -->
+  <section class="work" id="work">
+
+    <div class="work-head">
+      <div class="work-head-left">
+        <p class="section-label">/ SELECTED WORK</p>
+        <h2 class="work-title" id="workTitle">Projects</h2>
+      </div>
+      <div class="work-head-right" aria-hidden="true">
+        <span class="work-count">09</span>
+        <span class="work-count-lbl">Live Products</span>
+      </div>
+    </div>
+
+    <div class="grid-wrap">
+      <div class="work-grid" id="workGrid">
+
+        <!-- Project 1: Lens Shtar -->
+        <a class="project-card" href="https://lens.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-lens" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(107, 26, 255, 0.16)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-lens)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/lens-shtar.jpg" alt="Lens Shtar project mockup" class="card-img" loading="eager" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Lens Shtar</h2>
+            <span class="card-cat">Fintech · AI</span>
+            <div class="card-url-row">
+              <span class="card-url">lens.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 2: Kaya Remedies -->
+        <a class="project-card" href="https://kaya-remedies.shtar.space/" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-kaya" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(26, 200, 100, 0.14)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-kaya)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/kaya-remedies.jpg" alt="Kaya Remedies project mockup" class="card-img" loading="eager" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Kaya Remedies</h2>
+            <span class="card-cat">Ayurveda · Wellness</span>
+            <div class="card-url-row">
+              <span class="card-url">kaya-remedies.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 3: Ever Shtar -->
+        <a class="project-card" href="https://evershtar.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-ever" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(255, 107, 26, 0.16)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-ever)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/ever-shtar.jpg" alt="Ever Shtar project mockup" class="card-img" loading="eager" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Ever Shtar</h2>
+            <span class="card-cat">Digital Studio</span>
+            <div class="card-url-row">
+              <span class="card-url">evershtar.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 4: Indo Investor -->
+        <a class="project-card" href="https://indoinvestor.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-indo" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(14, 150, 80, 0.15)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-indo)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/indo-investor.png" alt="Indo Investor project mockup" class="card-img" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Indo Investor</h2>
+            <span class="card-cat">Real Estate</span>
+            <div class="card-url-row">
+              <span class="card-url">indoinvestor.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 5: Love Over Coffee -->
+        <a class="project-card" href="https://loveovercoffee.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-love" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(220, 140, 40, 0.16)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-love)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/love-over-coffee.jpg" alt="Love Over Coffee project mockup" class="card-img" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Love Over Coffee</h2>
+            <span class="card-cat">Premium Café</span>
+            <div class="card-url-row">
+              <span class="card-url">loveovercoffee.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 6: Orah Cafe -->
+        <a class="project-card" href="https://orahcafe.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-orah" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(8, 180, 160, 0.15)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-orah)" />
+          </svg>
+          <div class="card-img-wrap">
+            <div class="panel-grad" style="position: absolute; inset: 0; background: linear-gradient(155deg,#04100e,#081e1a);"></div>
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Orah Cafe</h2>
+            <span class="card-cat">Modern Café</span>
+            <div class="card-url-row">
+              <span class="card-url">orahcafe.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 7: Arvind Canteen -->
+        <a class="project-card" href="https://arvindcafe.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-arvind" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(220, 30, 20, 0.15)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-arvind)" />
+          </svg>
+          <div class="card-img-wrap">
+            <img src="img/arvind-canteen.jpg" alt="Arvind Canteen project mockup" class="card-img" loading="lazy" decoding="async" />
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Arvind Canteen</h2>
+            <span class="card-cat">Restaurant</span>
+            <div class="card-url-row">
+              <span class="card-url">arvindcafe.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 8: Diet Plan -->
+        <a class="project-card" href="https://tb-diet-plan.shtar.space" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-diet" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(80, 220, 40, 0.14)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-diet)" />
+          </svg>
+          <div class="card-img-wrap">
+            <div class="panel-grad" style="position: absolute; inset: 0; background: linear-gradient(155deg,#050e06,#0a1e0c);"></div>
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">Diet Plan</h2>
+            <span class="card-cat">Wellness</span>
+            <div class="card-url-row">
+              <span class="card-url">tb-diet-plan.shtar.space</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Github: View All Projects -->
+        <a class="project-card project-card--github" href="https://github.com/Akshat-xe?tab=repositories" target="_blank" rel="noopener">
+          <svg class="card-decor" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="grad-github" cx="50%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.08)" />
+                <stop offset="100%" stop-color="rgba(5, 5, 5, 0)" />
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#grad-github)" />
+          </svg>
+          <div class="card-img-wrap">
+            <div class="panel-grad" style="position: absolute; inset: 0; background: linear-gradient(155deg,#0a0a0a,#181818);"></div>
+          </div>
+          <div class="card-info">
+            <h2 class="card-title">View All Projects</h2>
+            <span class="card-cat">Repositories · Open Source</span>
+            <div class="card-url-row">
+              <span class="card-url">github.com/Akshat-xe</span>
+              <span class="card-arrow">↗</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================== STACK / SKILLS ======================== -->
+  <section class="stack" id="services">
+    <div class="stack-inner">
+
+      <div class="stack-head">
+        <p class="section-label">/ WHAT I KNOW</p>
+        <h2 class="section-title stack-title">Stack</h2>
+      </div>
+
+      <div class="stack-grid">
+
+        <!-- LEFT: Orbital skill display (component 4 — adapted) -->
+        <div class="stack-skills">
+          <p class="stack-skills-sub">Languages &amp; Tools</p>
+
+          <div class="orb-display">
+            <!-- Central core -->
+            <div class="orb-center">STACK</div>
+
+            <!-- Orbit ring tracks (decorative) -->
+            <div class="orb-track orb-track-1" aria-hidden="true"></div>
+            <div class="orb-track orb-track-2" aria-hidden="true"></div>
+
+            <!-- Ring 1 — HTML, CSS, Python (r=115px, 14s) -->
+            <div class="orb-node orb-r1-n1" title="HTML — 70%">
+              <div class="orb-node-inner">HTML<span>70%</span></div>
+            </div>
+            <div class="orb-node orb-r1-n2" title="CSS — 70%">
+              <div class="orb-node-inner">CSS<span>70%</span></div>
+            </div>
+            <div class="orb-node orb-r1-n3" title="Python — 60%">
+              <div class="orb-node-inner">PY<span>60%</span></div>
+            </div>
+
+            <!-- Ring 2 — JavaScript, TypeScript (r=180px, 22s) -->
+            <div class="orb-node orb-r2-n1" title="JavaScript — 50%">
+              <div class="orb-node-inner">JS<span>50%</span></div>
+            </div>
+            <div class="orb-node orb-r2-n2" title="TypeScript — 20%">
+              <div class="orb-node-inner">TS<span>20%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Stats cards -->
+        <div class="stack-stats">
+
+          <!-- GitHub Card -->
+          <a class="stat-card" href="https://github.com/Akshat-xe" target="_blank" rel="noopener">
+            <div class="sc-head">
+              <svg class="sc-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <div>
+                <span class="sc-title">GitHub</span>
+                <span class="sc-handle">Akshat-xe</span>
+              </div>
+              <span class="sc-arrow">↗</span>
+            </div>
+            <div class="gh-row">
+              <div class="gh-item">
+                <span class="gh-num">214</span>
+                <span class="gh-lbl">Contributions</span>
+                <span class="gh-sub">Jan 13 – Present</span>
+              </div>
+              <div class="gh-sep"></div>
+              <div class="gh-item">
+                <span class="gh-num">0</span>
+                <span class="gh-lbl">Current Streak</span>
+                <span class="gh-sub">Jun 2</span>
+              </div>
+              <div class="gh-sep"></div>
+              <div class="gh-item">
+                <span class="gh-num">5</span>
+                <span class="gh-lbl">Longest Streak</span>
+                <span class="gh-sub">Apr 6 – Apr 10</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- LeetCode Card -->
+          <a class="stat-card stat-card--lc" href="https://leetcode.com/u/X1Vu9EkqhD/" target="_blank" rel="noopener">
+            <div class="sc-head">
+              <svg class="sc-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H19.8a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+              </svg>
+              <div>
+                <span class="sc-title">LeetCode</span>
+                <span class="sc-handle">X1Vu9EkqhD</span>
+              </div>
+              <span class="sc-arrow">↗</span>
+            </div>
+            <div class="lc-body">
+              <div class="lc-ring-wrap">
+                <svg class="lc-ring-svg" viewBox="0 0 80 80">
+                  <circle class="s-track" cx="40" cy="40" r="30"/>
+                  <circle class="s-fill lc-ring-fill" cx="40" cy="40" r="30" stroke="url(#sg-orange)" stroke-dasharray="188.5" stroke-dashoffset="188.5"/>
+                </svg>
+                <div class="lc-center">
+                  <span class="lc-num">26</span>
+                  <span class="lc-sub">Solved</span>
+                </div>
+              </div>
+              <div class="lc-bars">
+                <div class="lc-bar-row">
+                  <span class="lc-diff easy">Easy</span>
+                  <div class="lc-bar-track"><div class="lc-bar-fill" data-w="2.43" style="background:#00b8a3"></div></div>
+                  <span class="lc-count">23 / 947</span>
+                </div>
+                <div class="lc-bar-row">
+                  <span class="lc-diff med">Medium</span>
+                  <div class="lc-bar-track"><div class="lc-bar-fill" data-w="0.15" style="background:#ffc01e"></div></div>
+                  <span class="lc-count">3 / 2063</span>
+                </div>
+                <div class="lc-bar-row">
+                  <span class="lc-diff hard">Hard</span>
+                  <div class="lc-bar-track"><div class="lc-bar-fill" data-w="0" style="background:#ef4743"></div></div>
+                  <span class="lc-count">0 / 939</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROCESS ======================== -->
+  <section class="process" id="process">
+    <div class="dot-bg" aria-hidden="true"></div>
+    <div class="process-inner">
+      <div class="section-head">
+        <p class="section-label">/ HOW IT WORKS</p>
+        <h2 class="section-title">The Process</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-n">01</span>
+          <h3>Understand Your Requirements</h3>
+          <p>Deep dive into your business needs, current pain points, and what success looks like for you.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true"></div>
+        <div class="step">
+          <span class="step-n">02</span>
+          <h3>Design &amp; Develop</h3>
+          <p>Architect the automation or product, design the experience, and build it with precision.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true"></div>
+        <div class="step">
+          <span class="step-n">03</span>
+          <h3>Deploy &amp; Optimise</h3>
+          <p>Launch, monitor performance, and continuously refine until the system runs itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== TESTIMONIALS ======================== -->
+  <section class="testimonials" id="testimonials">
+    <div class="test-head">
+      <p class="section-label">/ CLIENT WORDS</p>
+      <h2 class="section-title">What They Say</h2>
+    </div>
+    <div class="marquee-clip">
+      <div class="marquee-row" id="marqueeRow">
+
+        <div class="card">
+          <div class="card-stars">★★★★★</div>
+          <p>"Absolutely incredible work. The automation system Akshat built saved us 20+ hours per week. He understood our requirements immediately and delivered beyond expectations."</p>
+          <div class="card-author">
+            <div class="avatar">RS</div>
+            <div><strong>Rohit Sharma</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stars">★★★★★</div>
+          <p>"The website Akshat delivered exceeded every expectation. Clean, fast, and converts brilliantly. Our inquiries tripled within the first month of launch."</p>
+          <div class="card-author">
+            <div class="avatar">AG</div>
+            <div><strong>Ananya Gupta</strong><span>Startup Founder</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stars">★★★★★</div>
+          <p>"Working with Akshat felt like having a full development team. The API integrations were flawless and delivered ahead of schedule. Remarkable talent."</p>
+          <div class="card-author">
+            <div class="avatar">JC</div>
+            <div><strong>Jona Carter</strong><span>Product Manager</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-stars">★★★★★</div>
+          <p>"The workflow optimisation Akshat designed transformed our operations completely. Everything runs automatically now. Pure genius at work."</p>
+          <div class="card-author">
+            <div class="avatar">ST</div>
+            <div><strong>Sofia Toms</strong><span>Operations Director</span></div>
+          </div>
+        </div>
+
+        <!-- Duplicates for seamless loop -->
+        <div class="card" aria-hidden="true">
+          <div class="card-stars">★★★★★</div>
+          <p>"Absolutely incredible work. The automation system Akshat built saved us 20+ hours per week. He understood our requirements immediately and delivered beyond expectations."</p>
+          <div class="card-author">
+            <div class="avatar">RS</div>
+            <div><strong>Rohit Sharma</strong><span>Business Owner</span></div>
+          </div>
+        </div>
+
+        <div class="card" aria-hidden="true">
+          <div class="card-stars">★★★★★</div>
+          <p>"The website Akshat delivered exceeded every expectation. Clean, fast, and converts brilliantly. Our inquiries tripled within the first month of launch."</p>
+          <div class="card-author">
+            <div class="avatar">AG</div>
+            <div><strong>Ananya Gupta</strong><span>Startup Founder</span></div>
+          </div>
+        </div>
+
+        <div class="card" aria-hidden="true">
+          <div class="card-stars">★★★★★</div>
+          <p>"Working with Akshat felt like having a full development team. The API integrations were flawless and delivered ahead of schedule. Remarkable talent."</p>
+          <div class="card-author">
+            <div class="avatar">JC</div>
+            <div><strong>Jona Carter</strong><span>Product Manager</span></div>
+          </div>
+        </div>
+
+        <div class="card" aria-hidden="true">
+          <div class="card-stars">★★★★★</div>
+          <p>"The workflow optimisation Akshat designed transformed our operations completely. Everything runs automatically now. Pure genius at work."</p>
+          <div class="card-author">
+            <div class="avatar">ST</div>
+            <div><strong>Sofia Toms</strong><span>Operations Director</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================== FAQ ======================== -->
+  <section class="faq" id="faq">
+    <div class="faq-wrap">
+
+      <div class="faq-header">
+        <p class="section-label">/ ANSWERS</p>
+        <h2 class="section-title">Frequently Asked</h2>
+        <p class="faq-intro">Everything you need to know about working with me.</p>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>What types of projects do you take on?</span>
+            <div class="faq-icon" aria-hidden="true"></div>
+          </button>
+          <div class="faq-a">
+            <p>Automation systems, web development, API integrations, and digital products. Industries include cafes, real estate, fintech, wellness, and more. If it involves making systems smarter and more efficient — I'm interested.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>How long does a project take?</span>
+            <div class="faq-icon" aria-hidden="true"></div>
+          </button>
+          <div class="faq-a">
+            <p>A standard website takes 2–4 weeks. An automation system ranges from 1 week for simple workflows to 6+ weeks for complex enterprise integrations. I always provide a clear timeline upfront.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>Do you work with international clients?</span>
+            <div class="faq-icon" aria-hidden="true"></div>
+          </button>
+          <div class="faq-a">
+            <p>Absolutely. I've shipped products to clients across India and internationally. Remote collaboration is seamless — async communication, on-time delivery regardless of timezone.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>What is Pleiades Shtar?</span>
+            <div class="faq-icon" aria-hidden="true"></div>
+          </button>
+          <div class="faq-a">
+            <p>My next-generation automation framework currently in development. It aims to democratise complex workflow automation for businesses of all sizes — intelligent, modular, and built for real-world operations.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            <span>How do I start working with you?</span>
+            <div class="faq-icon" aria-hidden="true"></div>
+          </button>
+          <div class="faq-a">
+            <p>Reach out at <a href="mailto:elytragamer4@gmail.com">elytragamer4@gmail.com</a> with your project idea, goals, and what you need. I'll respond within 24 hours with an honest assessment and a clear path forward.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CONTACT ======================== -->
+  <section class="contact" id="contact">
+    <div class="dot-bg" aria-hidden="true"></div>
+    <div class="contact-glow" aria-hidden="true"></div>
+
+    <div class="contact-grid">
+
+      <!-- Left: CTA copy -->
+      <div class="contact-left">
+        <p class="section-label">/ LET'S WORK</p>
+        <h2 class="contact-title" id="contactTitle">
+          <span class="ct-line">Start a</span>
+          <span class="ct-line grad-fire">project.</span>
+        </h2>
+        <p class="contact-sub">Have an idea? Drop me a message and I'll get back within 24 hours.</p>
+        <div class="contact-socials">
+          <a href="#" class="c-soc">Twitter ↗</a>
+          <a href="https://github.com/Akshat-xe" target="_blank" rel="noopener" class="c-soc">GitHub ↗</a>
+          <a href="#" class="c-soc">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <!-- Right: Formspree form -->
+      <div class="contact-right">
+
+        <!-- Form-level error banner -->
+        <div id="cf-error-banner" class="cf-top-error"></div>
+
+        <!-- Contact form -->
+        <form id="contact-form" novalidate>
+
+          <div class="cf-row">
+            <div class="cf-field">
+              <label for="cf-name">Name</label>
+              <input type="text" id="cf-name" name="name" placeholder="Your name" data-fs-field required />
+              <span data-fs-error="name" class="cf-err"></span>
+            </div>
+            <div class="cf-field">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" placeholder="your@email.com" data-fs-field required />
+              <span data-fs-error="email" class="cf-err"></span>
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" placeholder="Tell me about your project, idea, or question..." rows="5" data-fs-field required></textarea>
+            <span data-fs-error="message" class="cf-err"></span>
+          </div>
+
+          <button type="submit" class="btn btn--fire cf-submit" data-fs-submit-btn>
+            <span class="cf-submit-txt">Send Message</span>
+            <span class="cf-submit-arrow">→</span>
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Success Toast Notification -->
+  <div id="success-toast" class="toast-container" aria-hidden="true">
+    <div class="toast-card">
+      <button class="toast-close-btn" id="closeToastBtn" aria-label="Close notification">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="toast-content-wrap">
+        <div class="toast-check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="toast-text-wrap">
+          <h3 class="toast-title">Message Sent!</h3>
+          <p class="toast-desc">Thanks for reaching out. Akshat will respond within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">AKSHAT</span>
+        <span class="footer-studio">× Ever Shtar Studio</span>
+      </div>
+      <p class="footer-motto">"Great systems should feel invisible."</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#work">Projects</a>
+        <a href="#services">Stack</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2025 Akshat · Ever Shtar · All rights reserved</p>
+    </div>
+  </footer>
+
+  <!-- ======================== SCRIPTS ======================== -->
+  <!-- GSAP core (local from zip) -->
+  <script src="gsap/gsap.min.js"></script>
+  <!-- ScrollTrigger (local from zip) -->
+  <script src="gsap/ScrollTrigger.min.js"></script>
+  <!-- SplitText (local from zip — Club GSAP) -->
+  <script src="gsap/SplitText.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+  <!-- Main animation logic -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>

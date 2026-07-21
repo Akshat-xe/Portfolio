@@ -1,0 +1,665 @@
+/* ============================================================
+   AKSHAT PORTFOLIO — fullscreen settings (Wuthering Waves style)
+   ============================================================ */
+
+:root {
+  --ak-set-row: rgba(10, 11, 14, 0.72);
+  --ak-set-row-hi: rgba(30, 33, 40, 0.85);
+  --ak-set-head: rgba(150, 160, 185, 0.16);
+  --ak-set-line: rgba(255, 255, 255, 0.07);
+  --ak-gold: #f2e3b8;
+}
+
+/* ---------- trigger button (high contrast, shadowed) ---------- */
+#ak-settings-btn {
+  position: fixed;
+  top: clamp(12px, 2.2vh, 22px);
+  right: clamp(12px, 2.2vw, 24px);
+  z-index: 9600;
+  width: clamp(42px, 5.4vh, 50px);
+  height: clamp(42px, 5.4vh, 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #12141a;
+  background: linear-gradient(160deg, #ffffff, #d9dde6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+#ak-settings-btn svg {
+  width: 55%;
+  height: 55%;
+  stroke-width: 1.9;
+}
+#ak-settings-btn:hover {
+  transform: rotate(45deg);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 24px -4px var(--ak-accent, #b566ff);
+}
+#ak-settings-btn:active {
+  transform: rotate(45deg) scale(0.93);
+}
+body.ak-settings-open #ak-settings-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- fullscreen shell ---------- */
+#ak-set-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9800;
+  display: grid;
+  grid-template-columns: clamp(64px, 7vw, 92px) 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "top top"
+    "rail panel"
+    "foot foot";
+  font-family: Jura, "Segoe UI", sans-serif;
+  color: #eef1f6;
+  background:
+    linear-gradient(180deg, rgba(6, 8, 12, 0.9), rgba(8, 10, 15, 0.82)),
+    rgba(6, 8, 12, 0.6);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  backdrop-filter: blur(22px) saturate(1.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s;
+}
+#ak-set-root.ak-on {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------- top bar ---------- */
+.ak-set-topbar {
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(14px, 2.4vh, 26px) clamp(16px, 3vw, 40px);
+}
+.ak-set-crumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  letter-spacing: 0.06em;
+}
+.ak-set-crumb-ico svg {
+  width: clamp(20px, 2.4vw, 26px);
+  height: clamp(20px, 2.4vw, 26px);
+  display: block;
+  color: #fff;
+}
+.ak-set-topright {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ak-set-x {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background 0.2s ease;
+}
+.ak-set-x svg {
+  width: 18px;
+  height: 18px;
+}
+.ak-set-x:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- left rail ---------- */
+.ak-set-rail {
+  grid-area: rail;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.8vh, 20px);
+  padding: clamp(6px, 1.4vh, 14px) 0;
+  border-right: 1px solid var(--ak-set-line);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.ak-set-rail::-webkit-scrollbar {
+  display: none;
+}
+.ak-rail-btn {
+  position: relative;
+  width: clamp(40px, 4.4vw, 52px);
+  height: clamp(40px, 4.4vw, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: rgba(238, 241, 246, 0.42);
+  cursor: pointer;
+  border-radius: 12px;
+  transition: color 0.22s ease, background 0.22s ease;
+}
+.ak-rail-btn svg {
+  width: 55%;
+  height: 55%;
+}
+.ak-rail-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+.ak-rail-btn.ak-on {
+  color: var(--ak-gold);
+  background: rgba(242, 227, 184, 0.1);
+}
+.ak-rail-btn.ak-on::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 18%;
+  width: 2px;
+  height: 64%;
+  border-radius: 2px;
+  background: var(--ak-gold);
+  box-shadow: 0 0 12px var(--ak-gold);
+}
+
+/* ---------- panel ---------- */
+.ak-set-panel {
+  grid-area: panel;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(10px, 3vw, 46px);
+}
+.ak-set-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+.ak-set-scroll::-webkit-scrollbar {
+  width: 9px;
+}
+.ak-set-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9px;
+}
+
+/* section header */
+.ak-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  margin: 16px 0 6px;
+  font-size: clamp(0.86rem, 1.7vw, 1.02rem);
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: linear-gradient(90deg, var(--ak-set-head), rgba(150, 160, 185, 0.02));
+  border-radius: 3px;
+}
+.ak-head:first-child {
+  margin-top: 4px;
+}
+.ak-head-ico svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+/* row */
+.ak-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: clamp(11px, 1.7vh, 17px) 18px;
+  margin-bottom: 3px;
+  background: var(--ak-set-row);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  outline: none;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.ak-row:hover,
+.ak-row:focus-visible {
+  background: var(--ak-set-row-hi);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.ak-row-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: clamp(0.86rem, 1.7vw, 1.04rem);
+  letter-spacing: 0.02em;
+  color: #f2f4f8;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* faded inline shortcut hint next to a setting label */
+.ak-keyhint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-family: ShareTech, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: rgba(238, 241, 246, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.ak-keyhint-ico svg {
+  width: 10px;
+  height: 10px;
+  display: block;
+  opacity: 0.75;
+}
+.ak-row-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  width: clamp(200px, 34vw, 430px);
+  justify-content: flex-end;
+}
+
+/* arrow selector */
+.ak-arrow {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #1a1c22;
+  background: #e9ecf2;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
+}
+.ak-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.4;
+}
+.ak-arrow:hover {
+  background: #fff;
+}
+.ak-arrow:active {
+  transform: scale(0.9);
+}
+.ak-arrow.ak-dim {
+  opacity: 0.32;
+  pointer-events: none;
+}
+.ak-selval {
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: clamp(0.84rem, 1.6vw, 1rem);
+  letter-spacing: 0.04em;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* slider */
+.ak-range {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1 1 auto;
+  height: 4px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    var(--ak-gold) 0%,
+    var(--ak-gold) var(--pct, 50%),
+    rgba(255, 255, 255, 0.18) var(--pct, 50%),
+    rgba(255, 255, 255, 0.18) 100%
+  );
+}
+.ak-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 22px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+.ak-range::-moz-range-thumb {
+  width: 13px;
+  height: 22px;
+  border: none;
+  border-radius: 4px;
+  background: #fff;
+}
+.ak-rangeval {
+  font-family: ShareTech, monospace;
+  font-size: 0.95rem;
+  color: #fff;
+  min-width: 2.6em;
+  text-align: right;
+  flex: 0 0 auto;
+}
+
+/* help bubble */
+.ak-help {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  cursor: help;
+}
+
+/* ---------- toggle switch (Performance tab) ---------- */
+.ak-row-compact {
+  padding-top: clamp(8px, 1.2vh, 12px);
+  padding-bottom: clamp(8px, 1.2vh, 12px);
+}
+.ak-row-ctrl-narrow {
+  width: auto;
+  flex: 0 0 auto;
+}
+.ak-sublabel {
+  font-family: ShareTech, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(226, 233, 245, 0.5);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ak-row-na {
+  opacity: 0.55;
+}
+.ak-row-na .ak-switch {
+  pointer-events: none;
+}
+
+.ak-switch {
+  position: relative;
+  width: 46px;
+  height: 25px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.22s ease, border-color 0.22s ease;
+  padding: 0;
+}
+.ak-switch-knob {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  transform: translateY(-50%);
+  transition: left 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.22s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.ak-switch.ak-on {
+  background: linear-gradient(135deg, var(--ak-gold), #d9c391);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 16px -4px var(--ak-gold);
+}
+.ak-switch.ak-on .ak-switch-knob {
+  left: calc(100% - 20px);
+  background: #16181d;
+}
+
+/* fixed-binding banner at the top of the Controls tab */
+.ak-banner {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 4px 0 10px;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(226, 233, 245, 0.72);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid rgba(160, 180, 210, 0.55);
+}
+.ak-banner-ico svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+  flex: 0 0 auto;
+}
+
+.ak-kbd-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.ak-kbd-lock svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+  color: rgba(238, 241, 246, 0.38);
+}
+
+.ak-kbd {
+  font-family: ShareTech, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 6px 16px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom-width: 2px;
+  color: #fff;
+  min-width: 64px;
+  text-align: center;
+}
+
+.ak-note {
+  margin: 12px 4px 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: rgba(238, 241, 246, 0.5);
+}
+.ak-empty {
+  padding: 60px 0;
+  text-align: center;
+  color: rgba(238, 241, 246, 0.55);
+}
+
+/* contact form */
+.ak-form {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 10px;
+}
+.ak-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: Jura, sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.ak-input:focus {
+  border-color: var(--ak-gold);
+}
+.ak-input::placeholder {
+  color: rgba(255, 255, 255, 0.32);
+}
+.ak-textarea {
+  resize: vertical;
+  min-height: 92px;
+}
+.ak-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ak-form-note {
+  font-size: 0.78rem;
+  color: rgba(238, 241, 246, 0.55);
+}
+.ak-form-note.ak-ok {
+  color: #86e3aa;
+}
+.ak-form-note.ak-bad {
+  color: #ff9a9a;
+}
+
+/* ---------- footer ---------- */
+.ak-set-foot {
+  grid-area: foot;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: clamp(12px, 2vh, 20px) clamp(16px, 3vw, 46px);
+  border-top: 1px solid var(--ak-set-line);
+  background: rgba(0, 0, 0, 0.3);
+}
+.ak-set-status {
+  font-family: ShareTech, monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: transparent;
+}
+.ak-set-status.warn {
+  color: #ffc46b;
+}
+.ak-set-status.ok {
+  color: #86e3aa;
+}
+.ak-set-acts {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.ak-btn {
+  font-family: Jura, sans-serif;
+  font-size: clamp(0.74rem, 1.5vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 11px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  transition: background 0.2s ease, transform 0.14s ease, box-shadow 0.24s ease;
+}
+.ak-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.ak-btn:active {
+  transform: scale(0.97);
+}
+.ak-btn[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.ak-btn-inline {
+  padding: 8px 20px;
+  letter-spacing: 0.1em;
+}
+.ak-btn-primary {
+  background: linear-gradient(135deg, #f5ead0, #dcc79a);
+  color: #16181d;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 22px -6px rgba(242, 227, 184, 0.5);
+}
+.ak-btn-primary:hover {
+  background: #fff;
+  box-shadow: 0 8px 30px -6px var(--ak-gold);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 760px) {
+  #ak-set-root {
+    grid-template-columns: 56px 1fr;
+  }
+  .ak-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .ak-row-ctrl {
+    width: 100%;
+  }
+  .ak-set-foot {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .ak-set-acts {
+    margin-left: 0;
+  }
+  .ak-btn {
+    flex: 1 1 auto;
+  }
+  .ak-set-status {
+    text-align: center;
+  }
+}
+
+}
+@media (prefers-reduced-motion: reduce) {
+  #ak-set-root,
+  #ak-settings-btn,
+  .ak-rail-btn {
+    transition: none;
+  }
+}

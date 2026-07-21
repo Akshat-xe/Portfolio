@@ -1,0 +1,349 @@
+/* ============================================================
+   AKSHAT PORTFOLIO — splash overlay + global chrome
+   Glass UI over animated liquid shader background.
+   ============================================================ */
+
+:root {
+  --ak-accent: #b566ff;
+  --ak-accent-soft: rgba(181, 102, 255, 0.35);
+  --ak-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  --ak-glass-border: rgba(255, 255, 255, 0.14);
+  --ak-text: #f4f2f8;
+  --ak-text-dim: rgba(244, 242, 248, 0.6);
+}
+
+/* ---------- kill old game branding + chrome ---------- */
+#splash-container {
+  display: none !important;
+}
+/* the whole original bottom bar is replaced by the settings modal */
+#menu-bar,
+#menu-bar-backing {
+  display: none !important;
+}
+/* distance readout + its reset button */
+#ui-dist {
+  visibility: hidden !important;
+}
+
+/* ---------- full-screen overlay ---------- */
+#ak-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #050505;
+  overflow: hidden;
+  font-family: Jura, "Segoe UI", sans-serif;
+  color: var(--ak-text);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+#ak-splash.ak-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+#ak-splash.ak-gone {
+  display: none;
+}
+
+#ak-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* subtle vignette so text always reads on any theme */
+#ak-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 40%, rgba(0, 0, 0, 0.45) 100%),
+    linear-gradient(rgba(0, 0, 0, 0.25), transparent 22%, transparent 78%, rgba(0, 0, 0, 0.35));
+}
+
+/* theme crossfade veil */
+#ak-veil {
+  position: absolute;
+  inset: 0;
+  background: #050505;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+#ak-veil.ak-active {
+  opacity: 1;
+}
+
+/* ---------- glass primitives ---------- */
+.ak-glass {
+  position: relative;
+  background: var(--ak-glass-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid var(--ak-glass-border);
+  border-radius: 999px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* magnetic glow border — accent ring that follows the cursor */
+.ak-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.6px;
+  background: radial-gradient(
+    150px circle at var(--mx, 50%) var(--my, 50%),
+    var(--ak-accent),
+    transparent 72%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.ak-glow:hover::before,
+.ak-glow.ak-glow-on::before {
+  opacity: 1;
+}
+@keyframes ak-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ---------- hero ---------- */
+#ak-hero {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2.6vh, 26px);
+  padding: clamp(70px, 12vh, 110px) 16px clamp(120px, 18vh, 170px);
+  text-align: center;
+}
+
+.ak-eyebrow {
+  font-family: ShareTech, monospace;
+  font-size: clamp(10px, 1.4vw, 13px);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--ak-text-dim);
+  padding: 8px 18px 8px 24px;
+}
+
+#ak-name {
+  margin: 0;
+  font-family: Jura, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 9.5vw, 7.2rem);
+  line-height: 1.04;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: default;
+}
+#ak-name .ak-word {
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0 0.18em;
+}
+#ak-name .ak-ch {
+  display: inline-block;
+  will-change: transform;
+  transition: color 0.25s ease;
+  text-shadow: 0 0 0 transparent;
+}
+
+#ak-sub {
+  font-family: ShareTech, monospace;
+  font-size: clamp(0.8rem, 2.4vw, 1.25rem);
+  letter-spacing: clamp(0.5em, 1.4vw, 0.9em);
+  text-transform: uppercase;
+  text-indent: clamp(0.5em, 1.4vw, 0.9em); /* balance the trailing tracking */
+  color: var(--ak-text);
+  opacity: 0.92;
+}
+
+#ak-tagline {
+  max-width: min(560px, 86vw);
+  font-family: Jura, sans-serif;
+  font-size: clamp(0.78rem, 1.8vw, 0.98rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.65;
+  color: var(--ak-text-dim);
+}
+
+/* ---------- explore button ---------- */
+#ak-explore {
+  margin-top: clamp(6px, 1.6vh, 16px);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(15px, 2.2vh, 19px) clamp(28px, 5vw, 44px);
+  font-family: Jura, sans-serif;
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ak-text);
+  cursor: pointer;
+  border: 1px solid var(--ak-glass-border);
+  outline: none;
+  transition: box-shadow 0.35s ease, background 0.35s ease;
+  will-change: transform;
+  touch-action: manipulation;
+}
+#ak-explore:hover,
+#ak-explore:focus-visible {
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    0 0 34px -6px var(--ak-accent-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+#ak-explore .ak-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-family: ShareTech, monospace;
+}
+#ak-explore:hover .ak-arrow {
+  transform: translateX(6px);
+}
+#ak-explore:active {
+  transform: scale(0.97);
+}
+#ak-explore[disabled] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ---------- theme dock ---------- */
+#ak-themes {
+  position: absolute;
+  bottom: clamp(16px, 4vh, 36px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  max-width: calc(100vw - 20px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#ak-themes::-webkit-scrollbar {
+  display: none;
+}
+#ak-themes .ak-themes-label {
+  font-family: ShareTech, monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ak-text-dim);
+  padding: 0 10px 0 14px;
+  flex: 0 0 auto;
+}
+.ak-pill {
+  flex: 0 0 auto;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ak-text-dim);
+  font-family: Jura, sans-serif;
+  font-size: clamp(11px, 1.5vw, 13.5px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  touch-action: manipulation;
+}
+.ak-pill:hover {
+  color: var(--ak-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+.ak-pill.ak-active {
+  background: #f5f5f5;
+  color: #111;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+.ak-pill:focus-visible {
+  box-shadow: 0 0 0 2px var(--ak-accent);
+}
+
+/* ---------- entrance animation ---------- */
+.ak-in {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: ak-enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes ak-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* the dock is centered with translateX(-50%), so it needs its own keyframes
+   (a shared transform animation would wipe out the centering) */
+#ak-themes.ak-in {
+  transform: translate(-50%, 22px);
+  animation-name: ak-enter-dock;
+}
+@keyframes ak-enter-dock {
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ---------- responsive tweaks ---------- */
+
+  #ak-hero {
+    gap: 14px;
+  }
+  #ak-themes .ak-themes-label {
+    display: none;
+  }
+}
+@media (max-height: 560px) {
+  #ak-hero {
+    gap: 8px;
+    padding-bottom: 90px;
+  }
+  #ak-tagline {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ak-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  #ak-themes.ak-in {
+    transform: translateX(-50%);
+  }
+  #ak-explore,
+  #ak-name .ak-ch {
+    transition: none;
+  }
+}
+
+#ak-explore.ak-busy{pointer-events:none;opacity:.85}
+#ak-explore.ak-busy .ak-arrow{animation:ak-spin 1s linear infinite}
+@keyframes ak-spin{to{transform:rotate(360deg)}}

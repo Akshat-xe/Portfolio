@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Akshat Kumar Racing Engine</title>
+<meta name="description" content="A procedural, infinitely-generated WebGL driving engine with a custom kinematic physics solver." />
+<link rel="stylesheet" href="./styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>%F0%9F%8F%81</text></svg>" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Colour-vision transforms, applied to the canvas wrapper by the
+     accessibility settings. -->
+<svg class="cvd-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="cvd-protanopia"><feColorMatrix type="matrix" values="
+      0.567 0.433 0     0 0
+      0.558 0.442 0     0 0
+      0     0.242 0.758 0 0
+      0     0     0     1 0"/></filter>
+    <filter id="cvd-deuteranopia"><feColorMatrix type="matrix" values="
+      0.625 0.375 0     0 0
+      0.70  0.30  0     0 0
+      0     0.30  0.70  0 0
+      0     0     0     1 0"/></filter>
+    <filter id="cvd-tritanopia"><feColorMatrix type="matrix" values="
+      0.95  0.05  0     0 0
+      0     0.433 0.567 0 0
+      0     0.475 0.525 0 0
+      0     0     0     1 0"/></filter>
+  </defs>
+</svg>
+
+<!-- Icon sprite for the side navigation. -->
+<svg class="cvd-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="ic-home"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></g>
+    <g id="ic-settings"><path d="M12 8.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5m9 3.5a8.6 8.6 0 0 1-.1 1.2l2.1 1.6-2 3.5-2.5-1a8.9 8.9 0 0 1-2 1.2l-.4 2.6h-4l-.4-2.6a8.9 8.9 0 0 1-2-1.2l-2.5 1-2-3.5L3.1 13.2A8.6 8.6 0 0 1 3 12c0-.4 0-.8.1-1.2L1 9.2l2-3.5 2.5 1a8.9 8.9 0 0 1 2-1.2L7.9 3h4l.4 2.6a8.9 8.9 0 0 1 2 1.2l2.5-1 2 3.5-2.1 1.6c.1.4.1.8.1 1.1z"/></g>
+    <g id="ic-analytics"><path d="M4 20h16v2H4zM6 12h3v6H6zm5-6h3v12h-3zm5 3h3v9h-3z"/></g>
+    <g id="ic-report"><path d="M12 2 2 21h20zm0 6a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1m0 10.5a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6"/></g>
+  </defs>
+</svg>
+
+<div id="viewport">
+  <canvas id="gl" aria-label="Driving viewport"></canvas>
+</div>
+
+<!-- ------------------------------------------------------------------ HUD -->
+<div id="hud" aria-live="off">
+  <div class="hud-corner hud-tl">
+    <div class="chip"><span class="chip-k">SEED</span><span class="chip-v" id="hud-seed">—</span></div>
+    <div class="chip"><span class="chip-k">DIST</span><span class="chip-v" id="hud-dist">0.00 km</span></div>
+    <div class="chip"><span class="chip-k">ALT</span><span class="chip-v" id="hud-alt">0 m</span></div>
+    <div class="chip"><span class="chip-k">SURF</span><span class="chip-v" id="hud-surface">ROAD</span></div>
+    <div class="chip" id="chip-drift"><span class="chip-k">DRIFT</span><span class="chip-v" id="hud-drift">0°</span></div>
+    <div class="chip" id="chip-auto" hidden><span class="chip-k">AUTO</span><span class="chip-v" id="hud-auto">ON</span></div>
+  </div>
+
+  <div class="hud-corner hud-tr">
+    <div class="chip"><span class="chip-k">FPS</span><span class="chip-v" id="hud-fps">—</span></div>
+    <div class="chip"><span class="chip-k">FRAME</span><span class="chip-v" id="hud-ms">—</span></div>
+    <div class="chip"><span class="chip-k">DRAWS</span><span class="chip-v" id="hud-draws">—</span></div>
+    <div class="chip"><span class="chip-k">TRIS</span><span class="chip-v" id="hud-tris">—</span></div>
+  </div>
+
+  <div class="hud-corner hud-bl">
+    <canvas id="minimap" width="220" height="220" aria-label="Route map"></canvas>
+  </div>
+
+  <div class="hud-corner hud-br">
+    <div id="cluster">
+      <svg viewBox="0 0 220 160" id="tacho" aria-hidden="true">
+        <path id="tacho-track" d="M 22 132 A 88 88 0 1 1 198 132" />
+        <path id="tacho-fill"  d="M 22 132 A 88 88 0 1 1 198 132" />
+        <path id="tacho-red"   d="" />
+      </svg>
+      <div id="readout">
+        <div id="speed-val">0</div>
+        <div id="speed-unit">km/h</div>
+      </div>
+      <div id="gear">N</div>
+      <div id="rpm-val">850 rpm</div>
+    </div>
+  </div>
+
+  <div id="toast" role="status"></div>
+  <div id="hint">W A S D&nbsp;·&nbsp;drive&nbsp;&nbsp;·&nbsp;&nbsp;SPACE&nbsp;·&nbsp;handbrake&nbsp;&nbsp;·&nbsp;&nbsp;DRAG&nbsp;·&nbsp;look&nbsp;&nbsp;·&nbsp;&nbsp;C&nbsp;·&nbsp;camera&nbsp;&nbsp;·&nbsp;&nbsp;R&nbsp;·&nbsp;reset&nbsp;&nbsp;·&nbsp;&nbsp;ESC&nbsp;·&nbsp;menu</div>
+</div>
+
+<!-- --------------------------------------------------------------- Loading -->
+<div id="loading">
+  <div class="load-inner">
+    <div class="wordmark"><span>AKSHAT KUMAR</span><em>RACING ENGINE</em></div>
+    <div class="bar"><i id="load-bar"></i></div>
+    <div id="load-msg">Seeding topography…</div>
+  </div>
+</div>
+
+<!-- --------------------------------------------------------------- Start -->
+<!-- Browsers refuse to start an AudioContext without a gesture, so the engine
+     waits behind this gate rather than trying to autoplay and failing. -->
+<div id="start" hidden>
+  <div class="start-inner">
+    <div class="wordmark"><span>AKSHAT KUMAR</span><em>RACING ENGINE</em></div>
+    <p class="start-note">Procedural terrain, route and audio — generated live from the seed
+      <b id="start-seed">akshat</b>.</p>
+    <button id="start-btn" class="primary big">Start engine</button>
+    <p class="start-sub">Audio is synthesised in the browser and begins on this click.</p>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------ Menu -->
+<div id="menu" hidden>
+  <div class="menu-shell" role="dialog" aria-modal="true" aria-label="Engine menu">
+    <aside class="menu-nav">
+      <div class="nav-brand">
+        <div class="wordmark small"><span>AKSHAT KUMAR</span><em>RACING ENGINE</em></div>
+      </div>
+      <nav id="menu-sections" role="tablist" aria-orientation="vertical"></nav>
+      <div class="nav-foot">
+        <button id="menu-resume" class="primary">Resume</button>
+        <button id="btn-reset-settings" class="ghost">Restore defaults</button>
+      </div>
+    </aside>
+
+    <div class="menu-main">
+      <header>
+        <div>
+          <h2 id="menu-title">Home</h2>
+          <p id="menu-sub">World generation and atmosphere</p>
+        </div>
+        <button id="menu-close" class="ghost icon" aria-label="Close menu">✕</button>
+      </header>
+      <nav id="menu-tabs" role="tablist"></nav>
+      <div id="menu-body"></div>
+      <footer>
+        <span id="menu-status"></span>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<noscript><p style="color:#fff;padding:2rem">This engine requires JavaScript and WebGL 2.</p></noscript>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
