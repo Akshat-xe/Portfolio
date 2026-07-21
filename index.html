@@ -1,1 +1,230 @@
-<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; URL=./landing-page/" /></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshat Kumar | Portfolio Hub</title>
+    <meta name="description" content="Official digital portfolio hub of Akshat Kumar — Founder @ Ever Shtar, Developer, Digital Architect & Automation Engineer.">
+    
+    <!-- OpenGraph & SEO -->
+    <meta property="og:title" content="Akshat Kumar | Portfolio Hub">
+    <meta property="og:description" content="Explore Akshat Kumar's portfolio tiers, live apps, and digital studio products.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://akshat.shtar.space">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Atmospheric Ambient Glow Mesh -->
+    <div class="bg-mesh">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="app-container">
+        <!-- Profile Header -->
+        <header class="hero stagger-item">
+            <div class="profile-avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <img src="https://avatars.githubusercontent.com/u/254704316?v=4" alt="Akshat Kumar" class="profile-avatar">
+                <span class="status-indicator" title="Building at Ever Shtar"></span>
+            </div>
+            
+            <div class="badge-pill">
+                <span class="pulse-dot"></span> Founder @ Ever Shtar
+            </div>
+            
+            <h1 class="title">AKSHAT KUMAR</h1>
+            <p class="subtitle">Digital Architect · Automation Engineer · Full-Stack Builder</p>
+
+            <p class="tagline">
+                <span class="highlight">17 y/o builder</span> creating high-converting websites, AI fintech engines, and serverless infrastructure.
+            </p>
+        </header>
+
+        <!-- Navigation Tiers -->
+        <nav class="portfolio-nav">
+            
+            <!-- Pro Tier -->
+            <a href="./akshat-pro/" class="nav-card stagger-item pro-card">
+                <div class="card-glow"></div>
+                <div class="card-border"></div>
+                <div class="card-content">
+                    <div class="icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
+                    <div class="text-content">
+                        <div class="title-row">
+                            <h2>Pro Experience</h2>
+                            <span class="badge pro-badge">FEATURED</span>
+                        </div>
+                        <p>Elevated custom engineering, smooth interactive systems & clean component architecture.</p>
+                    </div>
+                    <div class="action-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Ultra Tier -->
+            <a href="./akshat-ultra/" class="nav-card stagger-item ultra-card">
+                <div class="card-glow"></div>
+                <div class="card-border"></div>
+                <div class="card-content">
+                    <div class="icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    </div>
+                    <div class="text-content">
+                        <div class="title-row">
+                            <h2>Ultra Experience</h2>
+                            <span class="badge ultra-badge">FRAMER SSR</span>
+                        </div>
+                        <p>Immersive, atmospheric visual environment with dark glassmorphism & dynamic motion.</p>
+                    </div>
+                    <div class="action-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Extreme Dropdown Tier -->
+            <div class="dropdown-wrapper stagger-item">
+                <button class="nav-card extreme-card dropdown-trigger" id="extremeTrigger" aria-expanded="false">
+                    <div class="card-glow"></div>
+                    <div class="card-border"></div>
+                    <div class="card-content">
+                        <div class="icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        </div>
+                        <div class="text-content">
+                            <div class="title-row">
+                                <h2>Extreme Edition</h2>
+                                <span class="badge extreme-badge">EXPERIMENTAL</span>
+                            </div>
+                            <p>Cutting-edge prototypes, WebGL shaders & reactive design experiments.</p>
+                        </div>
+                        <div class="action-arrow chevron">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                </button>
+
+                <div class="dropdown-menu" id="extremeMenu">
+                    <div class="dropdown-inner">
+                        <a href="./extreme-1/" class="dropdown-item">
+                            <div class="item-icon">⚡</div>
+                            <div class="item-info">
+                                <span class="item-title">Extreme 1.0</span>
+                                <span class="item-desc">High-contrast canvas particle engine</span>
+                            </div>
+                            <span class="badge sm">V1</span>
+                        </a>
+                        <a href="./extreme-2/" class="dropdown-item">
+                            <div class="item-icon">🔥</div>
+                            <div class="item-info">
+                                <span class="item-title">Extreme 2.0</span>
+                                <span class="item-desc">Ultra-responsive full-screen portfolio matrix</span>
+                            </div>
+                            <span class="badge sm">V2</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+        <!-- Live Products Ecosystem -->
+        <section class="ecosystem-section stagger-item">
+            <h3 class="section-title"><span>LIVE PRODUCTS & ECOSYSTEM</span></h3>
+            <div class="ecosystem-grid">
+                <a href="https://evershtar.shtar.space" target="_blank" class="eco-card">
+                    <div class="eco-header">
+                        <span class="eco-name">Ever Shtar</span>
+                        <span class="eco-link-icon">↗</span>
+                    </div>
+                    <p class="eco-desc">Digital studio delivering high-converting web applications & AI platforms.</p>
+                </a>
+
+                <a href="https://lens.shtar.space" target="_blank" class="eco-card">
+                    <div class="eco-header">
+                        <span class="eco-name">Lens Shtar</span>
+                        <span class="eco-link-icon">↗</span>
+                    </div>
+                    <p class="eco-desc">AI-powered bank statement analysis engine & financial intelligence dashboard.</p>
+                </a>
+
+                <a href="https://indoinvestor.shtar.space" target="_blank" class="eco-card">
+                    <div class="eco-header">
+                        <span class="eco-name">Indo Investor</span>
+                        <span class="eco-link-icon">↗</span>
+                    </div>
+                    <p class="eco-desc">Premium real estate investment platform across Noida, Jewar & Dholera.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer stagger-item">
+            <div class="footer-links">
+                <a href="https://github.com/Akshat-xe" target="_blank">GitHub</a>
+                <span class="dot">•</span>
+                <a href="mailto:akshatunseen@gmail.com">Contact</a>
+                <span class="dot">•</span>
+                <a href="https://evershtar.shtar.space" target="_blank">Ever Shtar</a>
+            </div>
+            <p class="copyright">© 2026 Akshat Kumar. Deployed via GitHub Actions to <code>akshat.shtar.space</code></p>
+        </footer>
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Staggered entry animation
+            const items = document.querySelectorAll('.stagger-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, 100 + (index * 100));
+            });
+
+            // 3D Tilt interaction for desktop cards
+            document.querySelectorAll('.nav-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    if (window.innerWidth < 768) return;
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -4;
+                    const rotateY = ((x - centerX) / centerX) * 4;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+
+            // Extreme Dropdown Toggle
+            const trigger = document.getElementById('extremeTrigger');
+            const menu = document.getElementById('extremeMenu');
+            
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+                trigger.setAttribute('aria-expanded', !isOpen);
+                menu.classList.toggle('open', !isOpen);
+            });
+        });
+    </script>
+</body>
+</html>
